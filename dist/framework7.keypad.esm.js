@@ -3,11 +3,11 @@
  * Keypad plugin extends Framework7 with additional custom keyboards
  * http://framework7.io/plugins/
  *
- * Copyright 2014-2018 Vladimir Kharlampidi
+ * Copyright 2014-2019 [object Object]
  *
  * Released under the MIT License
  *
- * Released on: February 25, 2018
+ * Released on: July 23, 2019
  */
 
 var KeypadClassConstructor = function (Framework7Class) {
@@ -697,11 +697,15 @@ var KeypadClassConstructor = function (Framework7Class) {
         keypad.onClosed();
         return;
       }
-      if (keypad.params.routableModals) {
-        keypad.view.router.back();
-      } else {
-        keypad.modal.close();
-      }
+
+      keypad.modal.close();
+
+      // In f7 v4 this casues a glitch that navigates the user back
+      // if (keypad.params.routableModals) {
+      //   keypad.view.router.back();
+      // } else {
+      //   keypad.modal.close();
+      // }
     }
     init() {
       const keypad = this;
