@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: July 22, 2019
+ * Released on: August 6, 2019
  */
 
 (function (global, factory) {
@@ -464,11 +464,11 @@ var KeypadClassConstructor = function (Framework7Class) {
       if (keypad.params.valueMaxLength && keypad.value.length > keypad.params.valueMaxLength) {
         keypad.value = keypad.value.substring(0, keypad.params.valueMaxLength);
       }
-      keypad.emit('local::change keypadChange', keypad, keypad.value);
       if (keypad.$inputEl && keypad.$inputEl.length > 0) {
         keypad.$inputEl.val(keypad.formatValue(keypad.value));
         keypad.$inputEl.trigger('change');
       }
+      keypad.emit('local::change keypadChange', keypad, keypad.value);
     };
     Keypad.prototype.renderButtons = function renderButtons () {
       var keypad = this;
@@ -693,11 +693,15 @@ var KeypadClassConstructor = function (Framework7Class) {
         keypad.onClosed();
         return;
       }
-      if (keypad.params.routableModals) {
-        keypad.view.router.back();
-      } else {
-        keypad.modal.close();
-      }
+
+      keypad.modal.close();
+
+      // In f7 v4 this casues a glitch that navigates the user back
+      // if (keypad.params.routableModals) {
+      //   keypad.view.router.back();
+      // } else {
+      //   keypad.modal.close();
+      // }
     };
     Keypad.prototype.init = function init () {
       var keypad = this;
@@ -843,4 +847,3 @@ var framework7_keypad = {
 return framework7_keypad;
 
 })));
-//# sourceMappingURL=framework7.keypad.js.map
