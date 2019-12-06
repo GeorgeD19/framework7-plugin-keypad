@@ -225,22 +225,22 @@ export default function (Framework7Class) {
       }
       Utils.extend(keypad, {
         attachInputEvents() {
-          keypad.$inputEl.on('click', onInputClick);
+          keypad.$inputEl.on('touchend click', onInputClick);
           if (keypad.params.inputReadOnly) {
             keypad.$inputEl.on('focus mousedown', onInputFocus);
           }
         },
         detachInputEvents() {
-          keypad.$inputEl.off('click', onInputClick);
+          keypad.$inputEl.off('touchend click', onInputClick);
           if (keypad.params.inputReadOnly) {
             keypad.$inputEl.off('focus mousedown', onInputFocus);
           }
         },
         attachHtmlEvents() {
-          app.on('click', onHtmlClick);
+          app.on('touchend click', onHtmlClick);
         },
         detachHtmlEvents() {
-          app.off('click', onHtmlClick);
+          app.off('touchend click', onHtmlClick);
         },
       });
 
@@ -283,10 +283,10 @@ export default function (Framework7Class) {
           }
         }
 
-        $buttonsEl.on('click', handleClick);
+        $buttonsEl.on('touchend click', handleClick);
 
         keypad.detachKeypadEvents = function detachKeypadEvents() {
-          $buttonsEl.off('click', handleClick);
+          $buttonsEl.off('touchend click', handleClick);
         };
       };
 
