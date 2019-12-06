@@ -259,8 +259,20 @@ var KeypadClassConstructor = function (Framework7Class) {
 
       keypad.attachKeypadEvents = function attachKeypadEvents() {
         const $buttonsEl = keypad.$el.find('.keypad-buttons');
-
+        let dragging = false;
+        function handleTouchStart() {
+          dragging = false;
+        }
+        function handleTouchMove() {
+          dragging = true;
+        }
         function handleClick(e) {
+          if (e.type === 'touchend') {
+            $(this).off('click');
+            if (dragging) {
+              return;
+            }
+          }
           let $buttonEl = $(e.target);
           if (!$buttonEl.hasClass('keypad-button')) {
             $buttonEl = $buttonEl.parents('.keypad-button');
@@ -295,10 +307,12 @@ var KeypadClassConstructor = function (Framework7Class) {
           }
         }
 
+        $buttonsEl.on('touchstart', handleTouchStart);
+        $buttonsEl.on('touchmove', handleTouchMove);
         $buttonsEl.on('touchend click', handleClick);
 
         keypad.detachKeypadEvents = function detachKeypadEvents() {
-          $buttonsEl.off('touchend click', handleClick);
+          $buttonsEl.off('touchstart touchmove touchend click', handleClick);
         };
       };
 
